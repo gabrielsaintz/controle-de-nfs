@@ -1,0 +1,312 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api - Controle de notas fiscais",
+        "description": "API de controle de notas fiscais",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "Servidor de desenvolvimento"
+        }
+    ],
+    "paths": {
+        "/nfs": {
+            "get": {
+                "summary": "Listar todas as notas fiscais",
+                "description": "Retorna uma lista com todas as notas fiscais.",
+                "responses": {
+                    "200": {
+                        "description": "Lista de Notas Fiscais",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/NotaFiscal"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/nfs/{cnpj}": {
+            "parameters": [
+                {
+                    "name": "cnpj",
+                    "in": "path",
+                    "description": "cnpj do remetente.",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Buscar nota fiscal por cnpj do remetente",
+                "description": "Retorna uma lista com todas as notas fiscais.",
+                "responses": {
+                    "200": {
+                        "description": "Lista de Notas Fiscais",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/NotaFiscal"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/nfs/{cnpj}/total": {
+            "parameters": [
+                {
+                    "name": "cnpj",
+                    "in": "path",
+                    "description": "Cnpj do remetente.",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Buscar valor total a receber",
+                "description": "Retorna o valor total a receber.",
+                "responses": {
+                    "200": {
+                        "description": "Valor total",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValorTotal"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/nfs/{cnpj}/total-comprovado": {
+            "parameters": [
+                {
+                    "name": "cnpj",
+                    "in": "path",
+                    "description": "Cnpj do remetente.",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Buscar valor total de todas notas fiscais comprovadas",
+                "description": "Retorna o valor total de todas notas fiscais comprovadas.",
+                "responses": {
+                    "200": {
+                        "description": "Valor total de notas fiscais comprovadas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Valor"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/nfs/{cnpj}/total-aberto": {
+            "parameters": [
+                {
+                    "name": "cnpj",
+                    "in": "path",
+                    "description": "Cnpj do remetente.",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Buscar valor total de todas notas fiscais em aberto",
+                "description": "Retorna o valor total de todas notas fiscais em aberto.",
+                "responses": {
+                    "200": {
+                        "description": "Valor total de notas fiscais em aberto",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Valor"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/nfs/{cnpj}/total-perdido": {
+            "parameters": [
+                {
+                    "name": "cnpj",
+                    "in": "path",
+                    "description": "Cnpj do remetente.",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Buscar valor total perdido por entregas fora do prazo de 2 dias",
+                "description": "Retorna o valor total perdido por entregas fora do prazo de 2 dias",
+                "responses": {
+                    "200": {
+                        "description": "Valor total perdido por entregas fora do prazo de 2 dias",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Valor"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "NotaFiscal": {
+                "type": "object",
+                "properties": {
+                    "chave": {
+                        "type": "string",
+                        "example": "55200423326986000190000309355"
+                    },
+                    "numero": {
+                        "type": "string",
+                        "example": "000309355"
+                    },
+                    "dest": {
+                        "type": "object",
+                        "properties": {
+                            "nome": {
+                                "type": "string",
+                                "example": "TERRITORIAL TRANSPORTES E EMPREEDIMENTOS"
+                            },
+                            "cod": {
+                                "type": "string",
+                                "example": "03889255000145"
+                            }
+                        }
+                    },
+                    "cnpj_remete": {
+                        "type": "string",
+                        "example": "23326986000190"
+                    },
+                    "nome_remete": {
+                        "type": "string",
+                        "example": "CARVALHO ONIBUS LTDA"
+                    },
+                    "nome_transp": {
+                        "type": "string",
+                        "example": "CARVALHO PECAS E ONIBUS"
+                    },
+                    "cnpj_transp": {
+                        "type": "string",
+                        "example": "23326986000190"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "COMPROVADO"
+                    },
+                    "valor": {
+                        "type": "string",
+                        "example": "100.00"
+                    },
+                    "volumes": {
+                        "type": "string",
+                        "example": "2"
+                    },
+                    "dt_emis": {
+                        "type": "string",
+                        "example": "16/04/2020 15:51:24"
+                    },
+                    "dt_entrega": {
+                        "type": "string",
+                        "example": "17/04/2020 20:11:00"
+                    }
+                },
+                "required": [
+                    "chave",
+                    "numero",
+                    "dest",
+                    "cnpj_remete",
+                    "nome_remete",
+                    "nome_transp",
+                    "cnpj_transp",
+                    "status",
+                    "valor",
+                    "dt_emis"
+                ]
+            },
+            "ValorTotal": {
+                "type": "object",
+                "properties": {
+                    "totalAReceber": {
+                        "type": "string",
+                        "example": "205.38"
+                    },
+                    "totalComprovado": {
+                        "type": "string",
+                        "example": "359.89"
+                    },
+                    "totalEmAberto": {
+                        "type": "string",
+                        "example": "205.38"
+                    },
+                    "totalPerdidoPorAtraso": {
+                        "type": "string",
+                        "example": "359.89"
+                    }
+                }
+            },
+            "Valor": {
+                "type": "object",
+                "properties": {
+                    "valor": {
+                        "type": "string",
+                        "example": "359.89"
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Não foram encontradas notas fiscais para este CNPJ."
+                    }
+                }
+            }
+        }
+    }
+}
