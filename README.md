@@ -2,7 +2,8 @@
 Api para controle de notas fiscais.
 ## Como usar?
 ### Requisitos
-* ter [Composer](https://getcomposer.org/download/) instalado.
+* Php instalado.
+* [Composer](https://getcomposer.org/download/) instalado.
 ### Passo a passo
 * Baixe o repositório.
 * Rode o comando ```$ composer install ```.
