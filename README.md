@@ -1,4 +1,4 @@
-# controle-de-nfs
+# Controle de NFs
 Api para controle de notas fiscais.
 ## Como usar?
 ### Requisitos
