@@ -1,1 +1,12 @@
-# controle-de-nfs
+# Controle de NFs
+Api para controle de notas fiscais.
+## Como usar?
+### Requisitos
+* Php instalado.
+* [Composer](https://getcomposer.org/download/) instalado.
+### Passo a passo
+* Baixe o repositório.
+* Rode o comando ```$ composer install ```.
+* Rode o programa localmente usando o comando ```$ php artisan serve ```.
+
+Pronto agora acesse a documentação em [127.0.0.1:8000/api/doc](http://127.0.0.1:8000/api/doc).
